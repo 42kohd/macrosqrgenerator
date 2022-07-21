@@ -1,16 +1,20 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
+
+//error_reporting(E_ALL);
+
+
+
+require 'vendor/autoload.php';
 
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 
-$coach = $_POST['coach'];
-
-
-
-$qr = QrCode::create($coach);
-$writer = new PngWriter();
-$result = $writer->write($qr);
+if ( isset($_POST['coach']) ) {
+	$coach = $_POST['coach'];
+	$qr = QrCode::create('https://macrosinc.net/coach/' . $coach);
+	$writer = new PngWriter();
+	$result = $writer->write($qr);
+}
 ?>
 <!doctype html>
 
@@ -41,7 +45,7 @@ $result = $writer->write($qr);
   <!-- your content here... -->
 
 <form method="post">
-<input type="text" name="text">
+<input type="text" name="coach">
 <input type="submit">
 </form>
 
